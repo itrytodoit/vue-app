@@ -7,6 +7,7 @@ import Vuex from 'vuex'
 //import Mock from './mock/mock'
 //import store from './store'
 //import apiConfig from './config/api.js'
+import 'font-awesome/css/font-awesome.min.css'
 
 Vue.config.productionTip = false
 

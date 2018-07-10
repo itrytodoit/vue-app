@@ -1,8 +1,9 @@
 import Vue from 'vue'
 import Router from 'vue-router'
 import Login from '@/components/Login'
-import InitPassword from '@/components/InitPassword'
-import ForgotPassword from '@/components/ForgotPassword'
+import Home from '@/components/Home'
+import ResetPassword from '@/components/ResetPassword'
+import { homedir } from 'os';
 
 Vue.use(Router)
 
@@ -14,14 +15,39 @@ export default new Router({
       component: Login
     },
     {
-      path: '/init-password',
-      name: 'InitPassword',
-      component: InitPassword
+      path: '/home',
+      name: 'Home',
+      component: Home
+    },  
+    {
+      path: '/reset-password',
+      name: 'ResetPassword',
+      component: ResetPassword
     },
     {
-      path: '/forgot-password',
-      name: 'ForgotPassword',
-      component: ForgotPassword
+      path: '/query-approval-list',
+      name: 'QueryApprovalList',
+      component: ResetPassword
+    },  
+    {
+      path: '/show-bill',
+      name: 'ShowBill',
+      component: ResetPassword
+    },
+    {
+      path: '/show-bill-det',
+      name: 'ShowBillDet',
+      component: ResetPassword
+    },
+    {
+      path: '/commit-approval',
+      name: 'CommitApproval',
+      component: ResetPassword
+    },
+    {
+      path: '/query-change-user-list',
+      name: 'QueryChangeUserList',
+      component: ResetPassword
     }
   ]
 })
