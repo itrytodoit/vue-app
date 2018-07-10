@@ -2,11 +2,8 @@ import Vue from 'vue'
 import Router from 'vue-router'
 import Login from '@/components/Login'
 import Home from '@/components/Home'
-import UpdatePassword from '@/components/UpdatePassword'
-import QueryApprovalList from '@/components/QueryApprovalList'
-import ShowBill from '@/components/ShowBill'
-import ShowBillDet from '@/components/ShowBillDet'
-import QueryChangeUserList from '@/components/QueryChangeUserList'
+import ResetPassword from '@/components/ResetPassword'
+import { homedir } from 'os';
 
 Vue.use(Router)
 
@@ -18,34 +15,39 @@ export default new Router({
       component: Login
     },
     {
-      path: '/',
+      path: '/home',
       name: 'Home',
       component: Home
-    },
+    },  
     {
-      path: '/update-password',
-      name: 'UpdatePassword',
-      component: UpdatePassword
+      path: '/reset-password',
+      name: 'ResetPassword',
+      component: ResetPassword
     },
     {
       path: '/query-approval-list',
       name: 'QueryApprovalList',
-      component: QueryApprovalList
-    },
+      component: ResetPassword
+    },  
     {
       path: '/show-bill',
       name: 'ShowBill',
-      component: ShowBill
+      component: ResetPassword
     },
     {
       path: '/show-bill-det',
       name: 'ShowBillDet',
-      component: ShowBillDet
+      component: ResetPassword
+    },
+    {
+      path: '/commit-approval',
+      name: 'CommitApproval',
+      component: ResetPassword
     },
     {
       path: '/query-change-user-list',
       name: 'QueryChangeUserList',
-      component: QueryChangeUserList
+      component: ResetPassword
     }
   ]
 })
