@@ -1,17 +1,18 @@
 <template>
   <div>
-    <x-header>修改密码</x-header> 
+    <x-header>重置密码</x-header> 
     <div id="reset-password">
       <x-input v-for="item in items"
         :name="item.name"
-        :type="item.type"
-        :title="item.title"
         :placeholder="item.placeholder"
         v-model.trim="item.value"
         class="field">
       </x-input>
-      <x-button type="primary" class="btn-submit" @click.native="updatePassword">重置密码</x-button>
+      <x-button type="primary" class="btn-submit" @click.native="resetPassword">重置密码</x-button>
     </div>
+    <!--
+    <router-link class="login-btn" tag="a" :to="{ path: 'forgot-password' }">忘记密码？</router-link>
+    -->
   </div>
 </template>
 
@@ -19,7 +20,7 @@
 import { XHeader, XInput, XButton } from 'vux'
 
 export default {
-  name: 'UpdatePassword',
+  name: 'ResetPassword',
   components: {
     XHeader,
     XInput,
@@ -30,22 +31,16 @@ export default {
       items: [
         {
           name: 'username',
-          title: '用户名',
-          type: '',
           placeholder: '请输入用户名',
           value: ''
         },
         {
           name: 'oldPassword',
-          title: '原密码',
-          type: 'password',
           placeholder: '请输入原密码',
           value: ''
         },
         {
           name: 'newPassword',
-          title: '新密码',
-          type: 'password',
           placeholder: '请输入新密码',
           value: ''
         }
@@ -53,7 +48,7 @@ export default {
     }
   },
   methods: {
-    updatePassword () {
+    resetPassword () {
       var username = this.items[0].value
       var oldPassword = this.items[1].value
       var newPassword = this.items[2].value
@@ -65,9 +60,11 @@ export default {
 
 <style scoped>
 #reset-password {
+  margin: 30% 20px;
 }
 
 #reset-password .field {
+
 }
 
 #reset-password .btn-submit {
