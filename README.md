@@ -1,21 +1,21 @@
 # vue-app
 
 > A Vue.js project
+## 构建前提
+需要提前安装NodeJS
 
-## Build Setup
+## 构建过程
 
 ``` bash
-# install dependencies
+# 安装依赖
 npm install
 
-# serve with hot reload at localhost:8080
+# 启动开发环境，默认地址localhost:8080，以实际启动控制台提示为准
 npm run dev
 
-# build for production with minification
+# 生成生产环境资源文件，需要在web服务中预览
 npm run build
 
-# build for production and view the bundle analyzer report
+# 生成生产环境资源文件及报表文件
 npm run build --report
 ```
-
-For a detailed explanation on how things work, check out the [guide](http://vuejs-templates.github.io/webpack/) and [docs for vue-loader](http://vuejs.github.io/vue-loader).
