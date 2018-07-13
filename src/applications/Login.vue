@@ -54,9 +54,9 @@ export default {
                 console.log(response.data.resultCode == "200")
                 if (response.data.resultCode == "200") {
                     let resultMessage = response.data.resultMessage
-                    // this.$router.push({
-                    //     path: '/'
-                    // });
+                    this.$router.push({
+                        path: '/'
+                    });
                 }
             }).catch((errorResponse) => {})
         }

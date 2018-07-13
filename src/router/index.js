@@ -1,12 +1,12 @@
 import Vue from 'vue'
 import Router from 'vue-router'
-import Login from '@/components/Login'
-import Home from '@/components/Home'
-import UpdatePassword from '@/components/UpdatePassword'
-import QueryApprovalList from '@/components/QueryApprovalList'
-import ShowBill from '@/components/ShowBill'
-import ShowBillDet from '@/components/ShowBillDet'
-import QueryChangeUserList from '@/components/QueryChangeUserList'
+import Login from '@/applications/Login'
+import Home from '@/applications/Home'
+import UpdatePassword from '@/applications/UpdatePassword'
+import QueryApprovalList from '@/applications/QueryApprovalList'
+import ShowBill from '@/applications/ShowBill'
+import ShowBillDet from '@/applications/ShowBillDet'
+import QueryChangeUserList from '@/applications/QueryChangeUserList'
 
 Vue.use(Router)
 
