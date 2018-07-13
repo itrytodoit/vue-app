@@ -1,12 +1,12 @@
 <template>
-<idv>
+<div>
     <div id="login" class="">
         <x-input v-for="item in items" :name="item.name" :type="item.type" :placeholder="item.placeholder" v-model.trim="item.value" class="field">
             <i :class="item.icon" aria-hidden="true" slot="label"></i>
         </x-input>
         <x-button type="primary" class="btn-submit" @click.native="login">登录</x-button>
     </div>
-</idv>
+</div>
 </template>
 
 <script>
@@ -14,6 +14,7 @@ import {
     XInput,
     XButton
 } from 'vux'
+import * as apiConfig from '../config/api'
 
 export default {
     name: 'Login',
@@ -44,10 +45,20 @@ export default {
     },
     methods: {
         login() {
-            var username = this.items[0].value
-            var password = this.items[1].value
-            console.log('username is ' + username + ' password is ' + password)
-            location.href = '/'
+            let postData = {
+                username: this.items[0].value,
+                password: this.items[1].value
+            }
+            console.log('username is ' + postData.username + ' password is ' + postData.password)
+            this.$http.post(apiConfig.API_LOGIN, postData).then((response) => {
+                console.log(response.data.resultCode == "200")
+                if (response.data.resultCode == "200") {
+                    let resultMessage = response.data.resultMessage
+                    // this.$router.push({
+                    //     path: '/'
+                    // });
+                }
+            }).catch((errorResponse) => {})
         }
     }
 }
