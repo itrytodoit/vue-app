@@ -13,22 +13,20 @@ const getters = {
 }
 
 const actions = {
-    login(context, postData, callback) {
-        console.log(context)
-        console.log(postData)
+    login(context, options) {
+        console.log(apiConfig.API_LOGIN)
         axios({
             method: 'post',
             url: apiConfig.API_LOGIN,
-            data: postData
+            data: options.data
         }).then(function(res){
-            console.log(res)
             if(res.data.resultCode == 200) {
-                context.commit('updateUsername', postData.username)
+                options.successCallback();
             }
 
         })
         .catch(function(err){
-            console.log(err)
+            options.errorCallback();
         })
     }
 }

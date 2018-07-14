@@ -3,9 +3,8 @@
 import Vue from 'vue'
 import App from './App'
 import router from './router'
+// please comment out below line if you don't want to use API mock
 import Mock from './mock/mock'
-// import { AjaxPlugin } from 'vux'
-import VueResource from 'vue-resource'
 import VeeValidate, { Validator } from 'vee-validate'
 import messages from './assets/i18n/zh_CN'
 import store from './store'
@@ -22,22 +21,9 @@ new Vue({
   template: '<App/>'
 })
 
-// Vue.use(AjaxPlugin)
-Vue.use(Mock)
-Vue.use(VueResource)
-Vue.http.options = {
-  // root: API_BASE,
-  headers: {
-    'Content-Type': 'application/x-www-form-urlencoded'
-  },
-  emulateJSON: true,
-  loadingUIRequired: true // 触发该请求时默认是不隐藏（展示）loading 效果的
-}
-Vue.config.devtools = true
-
 Validator.updateDictionary({
   zh_CN: {
-      messages
+    messages
   }
 });
 const config = {
@@ -47,4 +33,4 @@ const config = {
   messages: null,
   strict: true
 };
-Vue.use(VeeValidate,config);
+Vue.use(VeeValidate, config);

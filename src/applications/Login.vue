@@ -50,20 +50,29 @@ export default {
                 password: this.items[1].value
             }
 
-            // console.log('username is ' + postData.username + ' password is ' + postData.password)
-            // this.$http.post(apiConfig.API_LOGIN, postData).then((response) => {
-            //     console.log(response.data.resultCode == "200")
-            //     if (response.data.resultCode == "200") {
-            //         //let resultMessage = response.data.resultMessage
-            //         this.$store.commit('updateUsername', postData.username)
-            //         this.$router.push({
-            //             path: '/'
-            //         });
-            //     }
-            // }).catch((errorResponse) => {})
+            console.log('username is ' + postData.username + ' password is ' + postData.password)
 
+            let successCallback = () => {
+                this.$store.commit('updateUsername', postData.username)
+                this.$router.push({
+                    path: '/'
+                })
+            }
 
-            this.$store.dispatch('login', postData)
+            let errorCallback = () => {
+                // this.$vux.toast.show({
+                //     showPositionValue: false,
+                //     text: "用户名或密码错误，请重试！",
+                //     type: type,
+                //     width: width,
+                //     position: 'middle'
+                // })
+            }
+            this.$store.dispatch('login', {
+                data: postData,
+                successCallback: successCallback,
+                errorCallback: errorCallback
+            })
         }
     }
 }
