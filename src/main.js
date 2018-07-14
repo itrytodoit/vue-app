@@ -5,7 +5,7 @@ import App from './App'
 import router from './router'
 // please comment out below line if you don't want to use API mock
 import Mock from './mock/mock'
-import VeeValidate, { Validator } from 'vee-validate'
+import VeeValidate from 'vee-validate'
 import messages from './assets/i18n/zh_CN'
 import store from './store'
 import 'font-awesome/css/font-awesome.min.css'
@@ -21,13 +21,13 @@ new Vue({
   template: '<App/>'
 })
 
-Validator.updateDictionary({
-  zh_CN: {
-    messages
-  }
-});
+// Validator.updateDictionary({
+//   zh_CN: {
+//     messages
+//   }
+// });
 const config = {
-  errorBagName: 'errors', // change if property conflicts.
+  errorBagName: 'aerrors', // change if property conflicts.
   delay: 0,
   locale: 'zh_CN',
   messages: null,
