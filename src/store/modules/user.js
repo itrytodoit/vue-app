@@ -1,41 +1,41 @@
 import Vue from 'vue'
-import Vuex from 'vuex'
-
-Vue.use(Vuex)
+import axios from 'axios'
+import * as apiConfig from '../../config/api'
 
 const state = {
+    username: ""
 }
 
-const getters = {}
+const getters = {
+    username: state => {
+        return state.username
+    }
+}
 
 const actions = {
-    login() {
-        let api = '/api/login'
-        let params = ''
-        this.$http.post(api,params).then((response) => {
-            if(!response.data.success){
-                toastConf.text = response.data.errorMsg
-                this.$vux.toast.show(toastConf)
-                return
+    login(context, postData, callback) {
+        console.log(context)
+        console.log(postData)
+        axios({
+            method: 'post',
+            url: apiConfig.API_LOGIN,
+            data: postData
+        }).then(function(res){
+            console.log(res)
+            if(res.data.resultCode == 200) {
+                context.commit('updateUsername', postData.username)
             }
-            this.$vux.alert.show({
-                title: '修改成功',
-                content: '请使用新设置的密码',
-                onHide() {
-                  // self.jsbridge.callLogout()
-                  this.jsbridge.callLogin('logoutCb')
-                }
-              })
-        }).catch((errorResponse) => {
-            this.$store.dispatch('showErrorToast')
+
+        })
+        .catch(function(err){
+            console.log(err)
         })
     }
 }
 
 const mutations = {
-    updateUsername(state) {
-        alert('updateUsername')
-        state.username = 'AAAAA'
+    updateUsername(state, username) {
+        state.username = username
     }
 }
 

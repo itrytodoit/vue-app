@@ -49,16 +49,21 @@ export default {
                 username: this.items[0].value,
                 password: this.items[1].value
             }
-            console.log('username is ' + postData.username + ' password is ' + postData.password)
-            this.$http.post(apiConfig.API_LOGIN, postData).then((response) => {
-                console.log(response.data.resultCode == "200")
-                if (response.data.resultCode == "200") {
-                    let resultMessage = response.data.resultMessage
-                    this.$router.push({
-                        path: '/'
-                    });
-                }
-            }).catch((errorResponse) => {})
+
+            // console.log('username is ' + postData.username + ' password is ' + postData.password)
+            // this.$http.post(apiConfig.API_LOGIN, postData).then((response) => {
+            //     console.log(response.data.resultCode == "200")
+            //     if (response.data.resultCode == "200") {
+            //         //let resultMessage = response.data.resultMessage
+            //         this.$store.commit('updateUsername', postData.username)
+            //         this.$router.push({
+            //             path: '/'
+            //         });
+            //     }
+            // }).catch((errorResponse) => {})
+
+
+            this.$store.dispatch('login', postData)
         }
     }
 }

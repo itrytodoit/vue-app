@@ -1,5 +1,5 @@
 <template>
-<idv>
+<div>
     <div id="query-approval-list" class="">
         <x-header :left-options="{backText: ''}">查询待审批列表</x-header>
         <x-table :cell-bordered="false" :content-bordered="false" style="background-color:#fff;">
@@ -25,7 +25,7 @@
             </tbody>
         </x-table>
     </div>
-</idv>
+</div>
 </template>
 
 <script>

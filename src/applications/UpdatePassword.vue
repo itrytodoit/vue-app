@@ -29,8 +29,8 @@ export default {
                     name: 'username',
                     title: '用户名',
                     type: '',
-                    placeholder: '请输入用户名',
-                    value: ''
+                    placeholder: '',
+                    value: this.$store.getters.username
                 },
                 {
                     name: 'oldPassword',
