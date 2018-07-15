@@ -1,7 +1,7 @@
 <template>
 <div>
     <div id="login" class="">
-        <x-input v-validate data-rules="required" v-for="item in items" :name="item.name" :type="item.type" :placeholder="item.placeholder" v-model.trim="item.value" class="field">
+        <x-input v-for="item in items" :name="item.name" :type="item.type" :placeholder="item.placeholder" v-model.trim="item.value" class="field">
             <i :class="item.icon" aria-hidden="true" slot="label"></i>
         </x-input>
         <x-button type="primary" class="btn-submit" @click.native="login">登录</x-button>
@@ -11,6 +11,7 @@
 
 <script>
 import {
+    ToastPlugin,
     XInput,
     XButton
 } from 'vux'
@@ -45,31 +46,38 @@ export default {
     },
     methods: {
         login() {
-            let postData = {
+            let data = {
                 username: this.items[0].value,
                 password: this.items[1].value
             }
-
-            console.log('username is ' + postData.username + ' password is ' + postData.password)
+            // console.log(this)
+            // this.$vux.toast.show({
+            //     showPositionValue: false,
+            //     text: "用户名或密码错误，请重试！",
+            //     type: type,
+            //     width: width,
+            //     position: 'middle'
+            // })
+            console.log('username is ' + data.username + ' password is ' + data.password)
 
             let successCallback = () => {
-                this.$store.commit('updateUsername', postData.username)
+                this.$store.commit('updateUsername', data.username)
                 this.$router.push({
                     path: '/'
                 })
             }
 
             let errorCallback = () => {
-                // this.$vux.toast.show({
-                //     showPositionValue: false,
-                //     text: "用户名或密码错误，请重试！",
-                //     type: type,
-                //     width: width,
-                //     position: 'middle'
-                // })
+                this.$vux.toast.show({
+                    showPositionValue: false,
+                    text: "用户名或密码错误，请重试！",
+                    type: type,
+                    width: width,
+                    position: 'middle'
+                })
             }
             this.$store.dispatch('login', {
-                data: postData,
+                data: data,
                 successCallback: successCallback,
                 errorCallback: errorCallback
             })

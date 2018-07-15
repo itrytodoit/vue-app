@@ -2,9 +2,9 @@
 <div>
     <x-header :left-options="{backText: ''}">修改密码</x-header>
     <div id="reset-password">
-        <x-input v-for="item in items" :name="item.name" :type="item.type" :title="item.title" :placeholder="item.placeholder" v-model.trim="item.value" class="field">
+        <x-input v-for="item in items" :name="item.name" :type="item.type" :title="item.title" :placeholder="item.placeholder" v-model.trim="item.value" :disabled="item.disabled" class="field">
         </x-input>
-        <x-button type="primary" class="btn-submit" @click.native="updatePassword">重置密码</x-button>
+        <x-button type="primary" class="btn-submit" @click.native="updatePassword">修改密码</x-button>
     </div>
 </div>
 </template>
@@ -25,18 +25,13 @@ export default {
     },
     data() {
         return {
-            items: [{
-                    name: 'username',
-                    title: '用户名',
-                    type: '',
-                    placeholder: '',
-                    value: this.$store.getters.username
-                },
+            items: [
                 {
                     name: 'oldPassword',
                     title: '原密码',
                     type: 'password',
                     placeholder: '请输入原密码',
+                    class: '',
                     value: ''
                 },
                 {
@@ -44,6 +39,15 @@ export default {
                     title: '新密码',
                     type: 'password',
                     placeholder: '请输入新密码',
+                    class: '',
+                    value: ''
+                },
+                {
+                    name: 'newPassword2',
+                    title: '   ',
+                    type: 'password',
+                    placeholder: '请再次输入新密码',
+                    class: '',
                     value: ''
                 }
             ]
@@ -51,10 +55,21 @@ export default {
     },
     methods: {
         updatePassword() {
-            var username = this.items[0].value
-            var oldPassword = this.items[1].value
-            var newPassword = this.items[2].value
-            console.log('username is ' + username + ' oldPassword is ' + oldPassword + ' newPassword is ' + newPassword)
+            var data = {
+                username : this.$store.getters.username,
+                oldPassword : this.items[0].value,
+                newPassword : this.items[1].value
+            }
+
+            let successCallback = () => {}
+
+            let errorCallback = () => {}
+
+            this.$store.dispatch('updatePassword', {
+                data: data,
+                successCallback: successCallback,
+                errorCallback: errorCallback
+            })
         }
     }
 }
