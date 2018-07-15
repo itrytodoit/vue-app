@@ -12,34 +12,30 @@ const getters = {
 }
 
 const actions = {
-  login (context, options) {
+  login(context, options) {
     console.log(apiConfig.API_LOGIN)
     axios({
-      method: 'POST',
-      url: apiConfig.API_LOGIN,
-      data: options.data
-    }).then(function (res) {
-      if (res.data.resultCode === '200') {
-        options.successCallback()
-      }
-    })
+        method: 'POST',
+        url: apiConfig.API_LOGIN,
+        data: options.data
+      }).then(function (res) {
+        options.successCallback(res)
+      })
       .catch(function (err) {
-        options.errorCallback()
+        options.errorCallback(err)
       })
   },
-  updatePassword (context, options) {
+  updatePassword(context, options) {
     console.log(apiConfig.API_UPDATE_PASSWORD)
     axios({
-      method: 'POST',
-      url: apiConfig.API_UPDATE_PASSWORD,
-      data: options.data
-    }).then(function (res) {
-      if (res.data.resultCode === '200') {
-        options.successCallback()
-      }
-    })
+        method: 'POST',
+        url: apiConfig.API_UPDATE_PASSWORD,
+        data: options.data
+      }).then(function (res) {
+        options.successCallback(res)
+      })
       .catch(function (err) {
-        options.errorCallback()
+        options.errorCallback(err)
       })
   }
 }
@@ -54,4 +50,5 @@ export default {
   state,
   getters,
   actions,
-mutations}
+  mutations
+}

@@ -47,22 +47,15 @@ export default {
                     class: 'fa fa-2x fa-icon fa-list',
                     link: 'query-approval-list'
                 },
-                /*
-                {
-                  label: '查询单据',
-                  class: 'fa fa-2x fa-icon fa-search',
-                  link: 'show-bill'
-                },
-                {
-                  label: '查询可转签人',
-                  class: 'fa fa-2x fa-icon fa-id-card',
-                  link: 'query-change-user-list'
-                },
-                */
                 {
                     label: '修改密码',
                     class: 'fa fa-2x fa-icon fa-key',
                     link: 'update-password'
+                },
+                {
+                    label: '登出',
+                    class: 'fa fa-2x fa-icon fa-sign-out',
+                    link: 'login'
                 }
             ]
         }

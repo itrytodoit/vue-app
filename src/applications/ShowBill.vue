@@ -3,29 +3,10 @@
     <div id="show-bill" class="">
         <x-header :left-options="{backText: ''}" :right-options="{showMore: true}" @on-click-more="showMenus = true">查询单据</x-header>
         <form-preview header-label="单号" :header-value="workflowCode" :body-items="list"></form-preview>
-        <x-table :cell-bordered="false" :content-bordered="false" style="background-color:#fff;">
-            <thead>
-                <tr style="background-color: #F7F7F7">
-                    <th>序号</th>
-                    <th>费用类型</th>
-                    <th>费用名称</th>
-                    <th>费用用途</th>
-                    <th>报销金额</th>
-                    <th>备注</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr v-for="item in items">
-                    <td>{{item.line_id}}</td>
-                    <td>{{item.feetype_id}}</td>
-                    <td>{{item.asset_name}}</td>
-                    <td>{{item.fee_use}}</td>
-                    <td>{{item.request_fee}}</td>
-                    <td>{{item.remark}}</td>
-                </tr>
-            </tbody>
-        </x-table>
-        <!-- <form-preview :footer-buttons="buttonGroup"></form-preview> -->
+        <divider>单据明细</divider>
+        <group v-for="item in items" :title="item.plan_id | bill-title">
+            <cell-form-preview :list="item | bill-list"></cell-form-preview>
+        </group>
     </div>
     <div v-transfer-dom>
         <actionsheet :menus="menus" v-model="showMenus" @on-click-menu="showDialog" show-cancel></actionsheet>
@@ -65,14 +46,45 @@ import {
     ButtonTab,
     ButtonTabItem,
     FormPreview,
+    CellFormPreview,
     XTable,
     XTextarea,
     XButton,
     XDialog,
     Group,
     Cell,
+    Divider,
     Selector
 } from 'vux'
+import lodash from 'lodash'
+import Vue from 'vue'
+
+Vue.filter('bill-title', function (value) {
+    return '单据【' + value + '】'
+})
+Vue.filter('bill-list', function (value) {
+    return [{
+            'label': '费用类型',
+            'value': value.feetype_id
+        },
+        {
+            'label': '费用名称',
+            'value': value.asset_name
+        },
+        {
+            'label': '费用用途',
+            'value': value.fee_use
+        },
+        {
+            'label': '报销金额',
+            'value': value.request_fee
+        },
+        {
+            'label': '备注',
+            'value': value.remark
+        }
+    ]
+})
 
 export default {
     name: 'ShowBill',
@@ -85,12 +97,14 @@ export default {
         ButtonTab,
         ButtonTabItem,
         FormPreview,
+        CellFormPreview,
         XTable,
         XTextarea,
         XButton,
         XDialog,
         Group,
         Cell,
+        Divider,
         Selector
     },
     data() {
@@ -189,22 +203,48 @@ export default {
         this.$store.commit('updateWorkflowCode', workflowCode);
         console.log('workflowCode is ' + workflowCode)
         let data = {}
-        let successCallback = () => {}
-        let errorCallback = () => {}
+        let successCallback1 = (res) => {
+            if (res.data.resultCode === '200') {
+                let bill = res.data
+                this.$store.commit('updateBill', bill)
+            }
+        }
+        let errorCallback1 = (err) => {}
+        let successCallback2 = (res) => {
+            if (res.data.resultCode === '200') {
+                let billDet = res.data.data
+                // let newBillDet = []
+                // lodash.forEach(billDel, function (item) {
+                //     lodash.forEach(item, function (value, key) {
+                //         alert(('key is ' + key + ' value is ' + value))
+                //         console.log('key is ' + key + ' value is ' + value)
+                //     })
+                // })
+                this.$store.commit('updateBillDet', billDet)
+            }
+        }
+        let errorCallback2 = (err) => {}
+        let successCallback3 = (res) => {
+            if (res.data.resultCode === '200') {
+                let transferList = res.data.data
+                this.$store.commit('updateTransferList', transferList)
+            }
+        }
+        let errorCallback3 = (err) => {}
         this.$store.dispatch('showBill', {
             data: data,
-            successCallback: successCallback,
-            errorCallback: errorCallback
+            successCallback: successCallback1,
+            errorCallback: errorCallback1
         })
         this.$store.dispatch('showBillDet', {
             data: data,
-            successCallback: successCallback,
-            errorCallback: errorCallback
-        }),
+            successCallback: successCallback2,
+            errorCallback: errorCallback2
+        })
         this.$store.dispatch('transferList', {
             data: data,
-            successCallback: successCallback,
-            errorCallback: errorCallback
+            successCallback: successCallback3,
+            errorCallback: errorCallback3
         })
     },
     mounted: function () {

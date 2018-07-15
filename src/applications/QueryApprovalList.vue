@@ -2,28 +2,9 @@
 <div>
     <div id="query-approval-list" class="">
         <x-header :left-options="{backText: ''}">查询待审批列表</x-header>
-        <x-table :cell-bordered="false" :content-bordered="false" style="background-color:#fff;">
-            <thead>
-                <tr style="background-color: #F7F7F7">
-                    <th>工作流编码</th>
-                    <!--<th>单据类型</th>-->
-                    <th>单据号</th>
-                    <th>送审人</th>
-                    <!--<th>描述</th>-->
-                </tr>
-            </thead>
-            <tbody>
-                <tr v-for="item in items">
-                    <td>{{item.workflow_code}}</td>
-                    <!--<td>{{item.bill_type}}</td>-->
-                    <td>
-                        <router-link :to="{'path':'show-bill',query:{workflow_code:item.workflow_code}}">{{item.bill_code}}</router-link>
-                    </td>
-                    <td>{{item.initiator}}</td>
-                    <!--<td>{{item.description}}</td>-->
-                </tr>
-            </tbody>
-        </x-table>
+        <group>
+             <cell v-for="item in items" :title="item.description" :link="{'path':'show-bill',query:{workflow_code:item.workflow_code}}" :inline-desc="item.workflow_code"></cell>
+        </group>
     </div>
 </div>
 </template>
@@ -31,6 +12,8 @@
 <script>
 import {
     XHeader,
+    Group,
+    Cell,
     XTable
 } from 'vux'
 
@@ -38,6 +21,8 @@ export default {
     name: 'QueryApprovalList',
     components: {
         XHeader,
+        Group,
+        Cell,
         XTable
     },
     data() {
@@ -47,14 +32,18 @@ export default {
     },
     created: function () {
         let userId = this.$store.getters.username;
-        console.log('this.$store.getters.username ' + userId)
         let data = {
             userId: userId,
             OffSet: 0,
             QueryNum: 10
         }
-        let successCallback = () => {}
-        let errorCallback = () => {}
+        let successCallback = (res) => {
+            if (res.data.resultCode === '200') {
+                let approvalList = res.data.data
+                this.$store.commit('updateApprovalList', approvalList)
+            }
+        }
+        let errorCallback = (err) => {}
         this.$store.dispatch('queryApprovalList', {
             data: data,
             successCallback: successCallback,

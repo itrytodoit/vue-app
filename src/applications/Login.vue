@@ -60,14 +60,16 @@ export default {
             // })
             console.log('username is ' + data.loginName + ' password is ' + data.passWord)
 
-            let successCallback = () => {
-                this.$store.commit('updateUsername', data.loginName)
-                this.$router.push({
-                    path: '/'
-                })
+            let successCallback = (res) => {
+                if (res.data.resultCode === '200') {
+                    this.$store.commit('updateUsername', data.loginName)
+                    this.$router.push({
+                        path: '/'
+                    })
+                }
             }
 
-            let errorCallback = () => {
+            let errorCallback = (err) => {
                 this.$vux.toast.show({
                     showPositionValue: false,
                     text: "用户名或密码错误，请重试！",

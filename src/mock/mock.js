@@ -11,7 +11,7 @@ Mock.mock(apiConfig.API_UPDATE_PASSWORD, {
   'resultMessage': 'success'
 })
 
-Mock.mock(apiConfig.API_QUERY_APPROVAL_LIST, {
+Mock.mock(/.*\/flowserver\/service\/queryApprovalList.*/, {
   'resultCode': '200',
   'resultMessage': '成功',
   'retNum': 2,

@@ -3,7 +3,9 @@
 import Vue from 'vue'
 import App from './App'
 import router from './router'
-import { ToastPlugin } from 'vux'
+import {
+  ToastPlugin
+} from 'vux'
 // please comment out below line if you don't want to use API mock
 // import Mock from './mock/mock'
 // import VeeValidate from 'vee-validate'
@@ -18,7 +20,9 @@ new Vue({
   el: '#app',
   store,
   router,
-  components: { App },
+  components: {
+    App
+  },
   template: '<App/>'
 })
 Vue.use(ToastPlugin)

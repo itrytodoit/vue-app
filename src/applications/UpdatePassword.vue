@@ -25,8 +25,7 @@ export default {
     },
     data() {
         return {
-            items: [
-                {
+            items: [{
                     name: 'oldPassword',
                     title: '原密码',
                     type: 'password',
@@ -56,14 +55,18 @@ export default {
     methods: {
         updatePassword() {
             var data = {
-                loginName : this.$store.getters.username,
-                oldPassword : this.items[0].value,
-                newPassword : this.items[1].value
+                loginName: this.$store.getters.username,
+                oldPassword: this.items[0].value,
+                newPassword: this.items[1].value
             }
 
-            let successCallback = () => {}
+            let successCallback = (res) => {
+                if (res.data.resultCode === '200') {
+                    //TODO
+                }
+            }
 
-            let errorCallback = () => {}
+            let errorCallback = (err) => {}
 
             this.$store.dispatch('updatePassword', {
                 data: data,

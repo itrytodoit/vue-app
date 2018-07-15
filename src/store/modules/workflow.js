@@ -35,14 +35,10 @@ const actions = {
       url: apiConfig.API_QUERY_APPROVAL_LIST,
       params: options.data
     }).then(function (res) {
-      if (res.data.resultCode === '200') {
-        let approvalList = res.data.data
-        context.commit('updateApprovalList', approvalList)
-        options.successCallback()
-      }
+      options.successCallback(res)
     })
       .catch(function (err) {
-        options.errorCallback()
+        options.errorCallback(err)
       })
   },
   showBill(context, options) {
@@ -52,14 +48,10 @@ const actions = {
       url: apiConfig.API_SHOW_BILL,
       data: options.data
     }).then(function (res) {
-      if (res.data.resultCode === '200') {
-        let bill = res.data
-        context.commit('updateBill', bill)
-        options.successCallback()
-      }
+      options.successCallback(res)
     })
       .catch(function (err) {
-        options.errorCallback()
+        options.errorCallback(err)
       })
   },
   showBillDet(context, options) {
@@ -69,14 +61,10 @@ const actions = {
       url: apiConfig.API_SHOW_BILL_DET,
       data: options.data
     }).then(function (res) {
-      if (res.data.resultCode === '200') {
-        let billDet = res.data.data
-        context.commit('updateBillDet', billDet)
-        options.successCallback()
-      }
+      options.successCallback(res)
     })
       .catch(function (err) {
-        options.errorCallback()
+        options.errorCallback(err)
       })
   },
   transferList(context, options) {
@@ -86,14 +74,10 @@ const actions = {
       url: apiConfig.API_QUERY_CHANGE_USER_LIST,
       data: options.data
     }).then(function (res) {
-      if (res.data.resultCode === '200') {
-        let transferList = res.data.data
-        context.commit('updateTransferList', transferList)
-        options.successCallback()
-      }
+      options.successCallback(res)
     })
       .catch(function (err) {
-        options.errorCallback()
+        options.errorCallback(err)
       })
   },
   commitApproval(context, options) {
