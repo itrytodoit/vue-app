@@ -7,7 +7,7 @@ import {
   ToastPlugin
 } from 'vux'
 // please comment out below line if you don't want to use API mock
-// import Mock from './mock/mock'
+import Mock from './mock/mock'
 // import VeeValidate from 'vee-validate'
 // import messages from './assets/i18n/zh_CN'
 import store from './store'

@@ -30,7 +30,7 @@ export default {
             items: this.$store.getters.approvalList
         }
     },
-    created: function () {
+    mounted: function () {
         let userId = this.$store.getters.username;
         let data = {
             userId: userId,
@@ -49,8 +49,6 @@ export default {
             successCallback: successCallback,
             errorCallback: errorCallback
         })
-    },
-    mounted: function() {
     },
     methods: {
         

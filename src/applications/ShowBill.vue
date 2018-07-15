@@ -198,7 +198,7 @@ export default {
             showTransferDialog: false
         }
     },
-    created: function () {
+    mounted: function () {
         let workflowCode = this.$route.query.workflow_code;
         this.$store.commit('updateWorkflowCode', workflowCode);
         console.log('workflowCode is ' + workflowCode)
@@ -246,9 +246,6 @@ export default {
             successCallback: successCallback3,
             errorCallback: errorCallback3
         })
-    },
-    mounted: function () {
-
     },
     methods: {
         showDialog(key) {
