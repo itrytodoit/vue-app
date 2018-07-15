@@ -5,7 +5,8 @@ const state = {
   workflowCode: '',
   approvalList: [],
   bill: {},
-  billDet: []
+  billDet: [],
+  transferList: []
 }
 
 const getters = {
@@ -20,6 +21,9 @@ const getters = {
   },
   billDet: state => {
     return state.billDet
+  },
+  transferList: state => {
+    return state.transferList
   }
 }
 
@@ -75,16 +79,31 @@ const actions = {
         options.errorCallback()
       })
   },
-  approve(context, options) {
-    console.log(apiConfig.API_SHOW_BILL_DET)
+  transferList(context, options) {
+    console.log(apiConfig.API_QUERY_CHANGE_USER_LIST)
     axios({
       method: 'post',
-      url: apiConfig.API_SHOW_BILL_DET,
+      url: apiConfig.API_QUERY_CHANGE_USER_LIST,
       data: options.data
     }).then(function (res) {
       if (res.data.resultCode === '200') {
-        let billDet = res.data.data
-        context.commit('updateBillDet', billDet)
+        let transferList = res.data.data
+        context.commit('updateTransferList', transferList)
+        options.successCallback()
+      }
+    })
+      .catch(function (err) {
+        options.errorCallback()
+      })
+  },
+  commitApproval(context, options) {
+    console.log(apiConfig.API_COMMIT_APPROVAL)
+    axios({
+      method: 'post',
+      url: apiConfig.API_COMMIT_APPROVAL,
+      data: options.data
+    }).then(function (res) {
+      if (res.data.resultCode === '200') {
         options.successCallback()
       }
     })
@@ -106,6 +125,9 @@ const mutations = {
   },
   updateBillDet(state, billDet) {
     state.billDet = billDet
+  },
+  updateTransferList(state, transferList) {
+    state.transferList = transferList
   }
 }
 

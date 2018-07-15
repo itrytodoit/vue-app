@@ -5,8 +5,6 @@ import Home from '@/applications/Home'
 import UpdatePassword from '@/applications/UpdatePassword'
 import QueryApprovalList from '@/applications/QueryApprovalList'
 import ShowBill from '@/applications/ShowBill'
-import ShowBillDet from '@/applications/ShowBillDet'
-import QueryChangeUserList from '@/applications/QueryChangeUserList'
 
 Vue.use(Router)
 
@@ -36,16 +34,6 @@ export default new Router({
       path: '/show-bill',
       name: 'ShowBill',
       component: ShowBill
-    },
-    {
-      path: '/show-bill-det',
-      name: 'ShowBillDet',
-      component: ShowBillDet
-    },
-    {
-      path: '/query-change-user-list',
-      name: 'QueryChangeUserList',
-      component: QueryChangeUserList
     }
   ]
 })

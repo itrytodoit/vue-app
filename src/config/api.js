@@ -5,3 +5,4 @@ export const API_QUERY_APPROVAL_LIST = API_ROOT + '/flowserver/service/queryAppr
 export const API_SHOW_BILL = API_ROOT + '/flowserv/service/showBill'
 export const API_SHOW_BILL_DET = API_ROOT + '/flowserv/service/showBillDet'
 export const API_QUERY_CHANGE_USER_LIST = API_ROOT + '/flowserv/service/queryChangeUserList'
+export const API_COMMIT_APPROVAL = API_ROOT + '/flowserv/service/commitApproval'

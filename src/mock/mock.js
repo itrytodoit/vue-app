@@ -85,6 +85,26 @@ Mock.mock(apiConfig.API_SHOW_BILL_DET, {
       'request_fee': '2000',
       'approve_sum': '2000',
       'remark': '如家'
-    }  
+    }
   ]
+})
+
+Mock.mock(apiConfig.API_QUERY_CHANGE_USER_LIST, {
+  'resultCode': '200',
+  'resultMessage': '成功',
+  'data': [
+    {
+      'user_code': '12345',
+      'username': 'zhangsan'
+    },
+    {
+      'user_code': '54321',
+      'username': 'lisi'
+    }
+  ]
+})
+
+Mock.mock(apiConfig.API_COMMIT_APPROVAL, {
+  'resultCode': '200',
+  'resultMessage': '成功'
 })

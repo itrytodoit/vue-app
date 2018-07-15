@@ -33,22 +33,25 @@
     <div v-transfer-dom>
         <x-dialog v-model="showApproveDialog" class="dialog-demo">
             <p class="dialog-title">审核通过</p>
-            <x-textarea placeholder="请输入审核意见" v-model="approveComment"></x-textarea>
-            <x-button type="primary" class="btn-submit" @click.native="approve">提交</x-button>
+            <x-textarea title="审核意见" placeholder="请输入审核意见" v-model="approveComment"></x-textarea>
+            <x-button type="primary" class="btn-submit" @click.native="approveRequest">提交</x-button>
         </x-dialog>
     </div>
     <div v-transfer-dom>
         <x-dialog v-model="showRejectDialog" class="dialog-demo">
             <p class="dialog-title">驳回</p>
-            <x-textarea placeholder="请输入驳回意见" v-model="rejectComment"></x-textarea>
-            <x-button type="primary" class="btn-submit" @click.native="reject">提交</x-button>
+            <x-textarea title="驳回意见" placeholder="请输入驳回意见" v-model="rejectComment"></x-textarea>
+            <x-button type="primary" class="btn-submit" @click.native="rejectRequest">提交</x-button>
         </x-dialog>
     </div>
     <div v-transfer-dom>
-        <x-dialog v-model="showRejectDialog" class="dialog-demo">
+        <x-dialog v-model="showTransferDialog" class="dialog-demo">
             <p class="dialog-title">转签</p>
-            <x-textarea placeholder="请输入驳回意见" v-model="approveComment"></x-textarea>
-            <x-button type="primary" class="btn-submit" @click.native="transfer">提交</x-button>
+            <group>
+                <selector title="转签人" v-model="transferUser" placeholder="请选择转签人" name="transfer" :value-map="['user_code', 'username']" :options="transferList"></selector>
+            </group>
+            <x-textarea title="转签意见" placeholder="请输入转签意见" v-model="transferComment"></x-textarea>
+            <x-button type="primary" class="btn-submit" @click.native="transferRequest">提交</x-button>
         </x-dialog>
     </div>
 </div>
@@ -67,7 +70,8 @@ import {
     XButton,
     XDialog,
     Group,
-    Cell
+    Cell,
+    Selector
 } from 'vux'
 
 export default {
@@ -86,11 +90,17 @@ export default {
         XButton,
         XDialog,
         Group,
-        Cell
+        Cell,
+        Selector
     },
     data() {
         return {
             workflowCode: this.$store.getters.bill.bill_code,
+            approveComment: '',
+            rejectComment: '',
+            transferComment: '',
+            transferUser: '',
+            transferList: this.$store.getters.transferList,
             list: [{
                     'label': '个人报销单代码',
                     'value': this.$store.getters.bill.bill_code
@@ -187,10 +197,15 @@ export default {
             data: data,
             successCallback: successCallback,
             errorCallback: errorCallback
+        }),
+        this.$store.dispatch('transferList', {
+            data: data,
+            successCallback: successCallback,
+            errorCallback: errorCallback
         })
     },
     mounted: function () {
-        //console.log(this.$store.getters.billDet)
+
     },
     methods: {
         showDialog(key) {
@@ -202,35 +217,61 @@ export default {
                 this.showTransferDialog = true
             }
         },
-        approve() {
-            let data = {}
+        approveRequest() {
+            let data = {
+                'workflow_code': this.$store.getters.workflowCode,
+                'user_code': this.$store.getters.username,
+                'action': '1',
+                'idea_des': this.approveComment,
+                'ele_user': ''
+            }
             let successCallback = () => {
                 this.showApproveDialog = false
             }
             let errorCallback = () => {
                 this.showApproveDialog = false
             }
-            this.$store.dispatch('approve', {
+            this.$store.dispatch('commitApproval', {
                 data: data,
                 successCallback: successCallback,
                 errorCallback: errorCallback
             })
         },
-        reject() {
-            let data = {}
-            let successCallback = () => {}
-            let errorCallback = () => {}
-            this.$store.dispatch('reject', {
+        rejectRequest() {
+            let data = {
+                'workflow_code': this.$store.getters.workflowCode,
+                'user_code': this.$store.getters.username,
+                'action': '98',
+                'idea_des': this.rejectComment,
+                'ele_user': ''
+            }
+            let successCallback = () => {
+                this.showRejectDialog = false
+            }
+            let errorCallback = () => {
+                this.showRejectDialog = false
+            }
+            this.$store.dispatch('commitApproval', {
                 data: data,
                 successCallback: successCallback,
                 errorCallback: errorCallback
             })
         },
-        transfer() {
-            let data = {}
-            let successCallback = () => {}
-            let errorCallback = () => {}
-            this.$store.dispatch('trandfer', {
+        transferRequest() {
+            let data = {
+                'workflow_code': this.$store.getters.workflowCode,
+                'user_code': this.$store.getters.username,
+                'action': '2',
+                'idea_des': this.transferComment,
+                'ele_user': this.transferUser
+            }
+            let successCallback = () => {
+                this.showTransferDialog = false
+            }
+            let errorCallback = () => {
+                this.showTransferDialog = false
+            }
+            this.$store.dispatch('commitApproval', {
                 data: data,
                 successCallback: successCallback,
                 errorCallback: errorCallback
