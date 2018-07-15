@@ -33,7 +33,7 @@ const actions = {
     axios({
       method: 'GET',
       url: apiConfig.API_QUERY_APPROVAL_LIST,
-      data: options.data
+      params: options.data
     }).then(function (res) {
       if (res.data.resultCode === '200') {
         let approvalList = res.data.data

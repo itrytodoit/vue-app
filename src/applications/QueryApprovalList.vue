@@ -46,7 +46,13 @@ export default {
         }
     },
     created: function () {
-        let data = {}
+        let userId = this.$store.getters.username;
+        console.log('this.$store.getters.username ' + userId)
+        let data = {
+            userId: userId,
+            OffSet: 0,
+            QueryNum: 10
+        }
         let successCallback = () => {}
         let errorCallback = () => {}
         this.$store.dispatch('queryApprovalList', {

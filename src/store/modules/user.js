@@ -30,7 +30,7 @@ const actions = {
   updatePassword (context, options) {
     console.log(apiConfig.API_UPDATE_PASSWORD)
     axios({
-      method: 'post',
+      method: 'POST',
       url: apiConfig.API_UPDATE_PASSWORD,
       data: options.data
     }).then(function (res) {
