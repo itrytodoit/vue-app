@@ -15,7 +15,7 @@ const actions = {
   login (context, options) {
     console.log(apiConfig.API_LOGIN)
     axios({
-      method: 'post',
+      method: 'POST',
       url: apiConfig.API_LOGIN,
       data: options.data
     }).then(function (res) {

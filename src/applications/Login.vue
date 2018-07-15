@@ -47,8 +47,8 @@ export default {
     methods: {
         login() {
             let data = {
-                username: this.items[0].value,
-                password: this.items[1].value
+                loginName: this.items[0].value,
+                passWord: this.items[1].value
             }
             // console.log(this)
             // this.$vux.toast.show({
@@ -58,10 +58,10 @@ export default {
             //     width: width,
             //     position: 'middle'
             // })
-            console.log('username is ' + data.username + ' password is ' + data.password)
+            console.log('username is ' + data.loginName + ' password is ' + data.passWord)
 
             let successCallback = () => {
-                this.$store.commit('updateUsername', data.username)
+                this.$store.commit('updateUsername', data.loginName)
                 this.$router.push({
                     path: '/'
                 })
