@@ -2,23 +2,54 @@
 <div>
     <div id="show-bill" class="">
         <x-header :left-options="{backText: ''}" :right-options="{showMore: true}" @on-click-more="showMenus = true">查询单据</x-header>
-        <group v-for="item in items">
-            <cell title="个人报销单代码" :value="item.bill_code"></cell>
-            <cell title="个人报销单名称" :value="item.bill_name"></cell>
-            <cell title="报销单性质" :value="item.bill_type"></cell>
-            <cell title="审批状态" :value="item.approve_state"></cell>
-            <cell title="申请日期" :value="item.apply_date"></cell>
-            <cell title="录入人" :value="item.checkin_man"></cell>
-            <cell title="审批日期" :value="item.approve_date"></cell>
-            <cell title="申请金额" :value="item.request_fee"></cell>
-            <cell title="审批金额" :value="item.bill_approve"></cell>
-            <cell title="审批人" :value="item.approve_man"></cell>
-            <cell title="部门" :value="item.bill_dept"></cell>
-            <cell title="借款人" :value="item.request_man"></cell>
-        </group>
+        <form-preview header-label="单号" :header-value="workflowCode" :body-items="list"></form-preview>
+        <x-table :cell-bordered="false" :content-bordered="false" style="background-color:#fff;">
+            <thead>
+                <tr style="background-color: #F7F7F7">
+                    <th>序号</th>
+                    <th>费用类型</th>
+                    <th>费用名称</th>
+                    <th>费用用途</th>
+                    <th>报销金额</th>
+                    <th>备注</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr v-for="item in items">
+                    <td>{{item.line_id}}</td>
+                    <td>{{item.feetype_id}}</td>
+                    <td>{{item.asset_name}}</td>
+                    <td>{{item.fee_use}}</td>
+                    <td>{{item.request_fee}}</td>
+                    <td>{{item.remark}}</td>
+                </tr>
+            </tbody>
+        </x-table>
+        <!-- <form-preview :footer-buttons="buttonGroup"></form-preview> -->
     </div>
     <div v-transfer-dom>
-        <actionsheet :menus="menus" v-model="showMenus" show-cancel></actionsheet>
+        <actionsheet :menus="menus" v-model="showMenus" @on-click-menu="showDialog" show-cancel></actionsheet>
+    </div>
+    <div v-transfer-dom>
+        <x-dialog v-model="showApproveDialog" class="dialog-demo">
+            <p class="dialog-title">审核通过</p>
+            <x-textarea placeholder="请输入审核意见" v-model="approveComment"></x-textarea>
+            <x-button type="primary" class="btn-submit" @click.native="approve">提交</x-button>
+        </x-dialog>
+    </div>
+    <div v-transfer-dom>
+        <x-dialog v-model="showRejectDialog" class="dialog-demo">
+            <p class="dialog-title">驳回</p>
+            <x-textarea placeholder="请输入驳回意见" v-model="rejectComment"></x-textarea>
+            <x-button type="primary" class="btn-submit" @click.native="reject">提交</x-button>
+        </x-dialog>
+    </div>
+    <div v-transfer-dom>
+        <x-dialog v-model="showRejectDialog" class="dialog-demo">
+            <p class="dialog-title">转签</p>
+            <x-textarea placeholder="请输入驳回意见" v-model="approveComment"></x-textarea>
+            <x-button type="primary" class="btn-submit" @click.native="transfer">提交</x-button>
+        </x-dialog>
     </div>
 </div>
 </template>
@@ -30,46 +61,181 @@ import {
     TransferDom,
     ButtonTab,
     ButtonTabItem,
+    FormPreview,
+    XTable,
+    XTextarea,
+    XButton,
+    XDialog,
     Group,
     Cell
 } from 'vux'
 
 export default {
     name: 'ShowBill',
+    directives: {
+        TransferDom
+    },
     components: {
         XHeader,
         Actionsheet,
-        TransferDom,
         ButtonTab,
         ButtonTabItem,
+        FormPreview,
+        XTable,
+        XTextarea,
+        XButton,
+        XDialog,
         Group,
         Cell
     },
     data() {
         return {
-            menus: {
-                menu1: '审批通过',
-                menu2: '审批不通过'
-            },
+            workflowCode: this.$store.getters.bill.bill_code,
+            list: [{
+                    'label': '个人报销单代码',
+                    'value': this.$store.getters.bill.bill_code
+                },
+                {
+                    'label': '个人报销单名称',
+                    'value': this.$store.getters.bill.bill_name
+                },
+                {
+                    'label': '报销单性质',
+                    'value': this.$store.getters.bill.bill_type
+                },
+                {
+                    'label': '审批状态',
+                    'value': this.$store.getters.bill.approve_state
+                },
+                {
+                    'label': '申请日期',
+                    'value': this.$store.getters.bill.apply_date
+                },
+                {
+                    'label': '录入人',
+                    'value': this.$store.getters.bill.checkin_man
+                },
+                {
+                    'label': '审批日期',
+                    'value': this.$store.getters.bill.approve_date
+                },
+                {
+                    'label': '申请金额',
+                    'value': this.$store.getters.bill.request_fee
+                },
+                {
+                    'label': '审批金额',
+                    'value': this.$store.getters.bill.bill_approve
+                },
+                {
+                    'label': '审批人',
+                    'value': this.$store.getters.bill.approve_man
+                },
+                {
+                    'label': '部门',
+                    'value': this.$store.getters.bill.bill_dept
+                },
+                {
+                    'label': '借款人',
+                    'value': this.$store.getters.bill.request_man
+                }
+            ],
+            items: this.$store.getters.billDet,
+            buttonGroup: [{
+                style: 'primary',
+                text: '审批通过'
+            }, {
+                style: 'default',
+                text: '驳回'
+            }, {
+                style: 'default',
+                text: '转签',
+                link: '/'
+            }],
+            menus: [{
+                label: '审批通过',
+                type: 'primary',
+                value: 'approve',
+                otherProp: 'hey'
+            }, {
+                label: '驳回',
+                type: 'warn',
+                value: 'reject',
+                otherProp: 'hey'
+            }, {
+                label: '转签',
+                type: '',
+                value: 'transfer',
+                otherProp: 'hey'
+            }],
             showMenus: false,
-            items: [{
-                bill_name: '0000013580',
-                bill_code: 'JK2018062600000002',
-                bill_type: 'PersonLoanRules',
-                approve_state: '待审批',
-                checkin_man: '杨勇',
-                approve_date: '2018-09-09',
-                apply_date: '2018-09-09',
-                request_fee: '505.00',
-                bill_approve: '505.00',
-                approve_man: '杨勇',
-                bill_dept: '部门',
-                request_man: ''
-            }]
+            showApproveDialog: false,
+            showRejectDialog: false,
+            showTransferDialog: false
         }
     },
+    created: function () {
+        let data = {}
+        let successCallback = () => {}
+        let errorCallback = () => {}
+        this.$store.dispatch('showBill', {
+            data: data,
+            successCallback: successCallback,
+            errorCallback: errorCallback
+        })
+        this.$store.dispatch('showBillDet', {
+            data: data,
+            successCallback: successCallback,
+            errorCallback: errorCallback
+        })
+    },
+    mounted: function () {
+        //console.log(this.$store.getters.billDet)
+    },
     methods: {
-
+        showDialog(key) {
+            if (key === 'approve') {
+                this.showApproveDialog = true
+            } else if (key === 'reject') {
+                this.showRejectDialog = true
+            } else if (key === 'transfer') {
+                this.showTransferDialog = true
+            }
+        },
+        approve() {
+            let data = {}
+            let successCallback = () => {
+                this.showApproveDialog = false
+            }
+            let errorCallback = () => {
+                this.showApproveDialog = false
+            }
+            this.$store.dispatch('approve', {
+                data: data,
+                successCallback: successCallback,
+                errorCallback: errorCallback
+            })
+        },
+        reject() {
+            let data = {}
+            let successCallback = () => {}
+            let errorCallback = () => {}
+            this.$store.dispatch('reject', {
+                data: data,
+                successCallback: successCallback,
+                errorCallback: errorCallback
+            })
+        },
+        transfer() {
+            let data = {}
+            let successCallback = () => {}
+            let errorCallback = () => {}
+            this.$store.dispatch('trandfer', {
+                data: data,
+                successCallback: successCallback,
+                errorCallback: errorCallback
+            })
+        }
     }
 }
 </script>
@@ -77,5 +243,10 @@ export default {
 <style scoped>
 .vux-label {
     text-align: left;
+}
+
+.btn-submit {
+    width: 50%;
+    margin-bottom: 20px;
 }
 </style>

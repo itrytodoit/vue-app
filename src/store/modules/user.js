@@ -19,7 +19,7 @@ const actions = {
       url: apiConfig.API_LOGIN,
       data: options.data
     }).then(function (res) {
-      if (res.data.resultCode === 200) {
+      if (res.data.resultCode === '200') {
         options.successCallback()
       }
     })
@@ -34,7 +34,7 @@ const actions = {
       url: apiConfig.API_UPDATE_PASSWORD,
       data: options.data
     }).then(function (res) {
-      if (res.data.resultCode == 200) {
+      if (res.data.resultCode === '200') {
         options.successCallback()
       }
     })

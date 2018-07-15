@@ -56,7 +56,7 @@ export default {
     methods: {
         updatePassword() {
             var data = {
-                username : this.$store.getters.username,
+                loginName : this.$store.getters.username,
                 oldPassword : this.items[0].value,
                 newPassword : this.items[1].value
             }

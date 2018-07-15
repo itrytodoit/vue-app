@@ -1,7 +1,7 @@
 export const API_ROOT = (process.env.NODE_ENV === 'development') ? '' : 'http://prd.domain'
 export const API_LOGIN = API_ROOT + '/flowserv/service/login'
 export const API_UPDATE_PASSWORD = API_ROOT + '/flowserv/service/updatePassword'
-export const API_QUERY_APPROVAL = API_ROOT + '/flowserver/service/queryApprovalList'
+export const API_QUERY_APPROVAL_LIST = API_ROOT + '/flowserver/service/queryApprovalList'
 export const API_SHOW_BILL = API_ROOT + '/flowserv/service/showBill'
 export const API_SHOW_BILL_DET = API_ROOT + '/flowserv/service/showBillDet'
 export const API_QUERY_CHANGE_USER_LIST = API_ROOT + '/flowserv/service/queryChangeUserList'

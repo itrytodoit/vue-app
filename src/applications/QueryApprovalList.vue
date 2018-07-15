@@ -35,32 +35,30 @@ import {
 } from 'vux'
 
 export default {
-    name: 'Login',
+    name: 'QueryApprovalList',
     components: {
         XHeader,
         XTable
     },
     data() {
         return {
-            items: [{
-                    workflow_code: '0000013580',
-                    bill_code: 'JK2018062600000002',
-                    bill_type: 'PersonLoanRules',
-                    initiator: '杨勇',
-                    description: '杨勇发起[ 借款测试—差旅 ]的申请'
-                },
-                {
-                    workflow_code: '0000013580',
-                    bill_code: 'JK2018062600000002',
-                    bill_type: 'PersonLoanRules',
-                    initiator: '杨勇',
-                    description: '杨勇发起[ 借款测试—差旅 ]的申请'
-                },
-            ]
+            items: this.$store.getters.approvalList
         }
     },
+    created: function () {
+        let data = {}
+        let successCallback = () => {}
+        let errorCallback = () => {}
+        this.$store.dispatch('queryApprovalList', {
+            data: data,
+            successCallback: successCallback,
+            errorCallback: errorCallback
+        })
+    },
+    mounted: function() {
+    },
     methods: {
-
+        
     }
 }
 </script>
