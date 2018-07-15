@@ -2,12 +2,16 @@ import axios from 'axios'
 import * as apiConfig from '../../config/api'
 
 const state = {
-  username: ''
+  username: '',
+  isLogin: false
 }
 
 const getters = {
   username: state => {
     return state.username
+  },
+  isLogin: state => {
+    return state.isLogin
   }
 }
 
@@ -43,6 +47,9 @@ const actions = {
 const mutations = {
   updateUsername(state, username) {
     state.username = username
+  },
+  updateIsLogin(state, isLogin) {
+    state.isLogin = isLogin
   }
 }
 

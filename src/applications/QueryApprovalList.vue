@@ -3,7 +3,7 @@
     <div id="query-approval-list" class="">
         <x-header :left-options="{backText: ''}">查询待审批列表</x-header>
         <group>
-             <cell v-for="item in items" :title="item.description" :link="{'path':'show-bill',query:{workflow_code:item.workflow_code}}" :inline-desc="item.workflow_code"></cell>
+            <cell v-for="item in items" :title="item.description" :link="{'path':'show-bill',query:{workflow_code:item.workflow_code}}" :inline-desc="item.workflow_code"></cell>
         </group>
     </div>
 </div>
@@ -31,6 +31,13 @@ export default {
         }
     },
     mounted: function () {
+        let isLogin = this.$store.getters.isLogin;
+        console.log('isLogin' + isLogin)
+        if (!isLogin) {
+            this.$router.push({
+                path: '/login'
+            })
+        }
         let userId = this.$store.getters.username;
         let data = {
             userId: userId,
@@ -51,7 +58,7 @@ export default {
         })
     },
     methods: {
-        
+
     }
 }
 </script>

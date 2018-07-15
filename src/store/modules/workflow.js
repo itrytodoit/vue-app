@@ -31,12 +31,12 @@ const actions = {
   queryApprovalList(context, options) {
     console.log(apiConfig.API_QUERY_APPROVAL_LIST)
     axios({
-      method: 'GET',
-      url: apiConfig.API_QUERY_APPROVAL_LIST,
-      params: options.data
-    }).then(function (res) {
-      options.successCallback(res)
-    })
+        method: 'GET',
+        url: apiConfig.API_QUERY_APPROVAL_LIST,
+        params: options.data
+      }).then(function (res) {
+        options.successCallback(res)
+      })
       .catch(function (err) {
         options.errorCallback(err)
       })
@@ -44,12 +44,12 @@ const actions = {
   showBill(context, options) {
     console.log(apiConfig.API_SHOW_BILL)
     axios({
-      method: 'post',
-      url: apiConfig.API_SHOW_BILL,
-      data: options.data
-    }).then(function (res) {
-      options.successCallback(res)
-    })
+        method: 'post',
+        url: apiConfig.API_SHOW_BILL,
+        data: options.data
+      }).then(function (res) {
+        options.successCallback(res)
+      })
       .catch(function (err) {
         options.errorCallback(err)
       })
@@ -57,12 +57,12 @@ const actions = {
   showBillDet(context, options) {
     console.log(apiConfig.API_SHOW_BILL_DET)
     axios({
-      method: 'post',
-      url: apiConfig.API_SHOW_BILL_DET,
-      data: options.data
-    }).then(function (res) {
-      options.successCallback(res)
-    })
+        method: 'post',
+        url: apiConfig.API_SHOW_BILL_DET,
+        data: options.data
+      }).then(function (res) {
+        options.successCallback(res)
+      })
       .catch(function (err) {
         options.errorCallback(err)
       })
@@ -70,12 +70,12 @@ const actions = {
   transferList(context, options) {
     console.log(apiConfig.API_QUERY_CHANGE_USER_LIST)
     axios({
-      method: 'post',
-      url: apiConfig.API_QUERY_CHANGE_USER_LIST,
-      data: options.data
-    }).then(function (res) {
-      options.successCallback(res)
-    })
+        method: 'post',
+        url: apiConfig.API_QUERY_CHANGE_USER_LIST,
+        data: options.data
+      }).then(function (res) {
+        options.successCallback(res)
+      })
       .catch(function (err) {
         options.errorCallback(err)
       })
@@ -83,14 +83,14 @@ const actions = {
   commitApproval(context, options) {
     console.log(apiConfig.API_COMMIT_APPROVAL)
     axios({
-      method: 'post',
-      url: apiConfig.API_COMMIT_APPROVAL,
-      data: options.data
-    }).then(function (res) {
-      if (res.data.resultCode === '200') {
-        options.successCallback()
-      }
-    })
+        method: 'post',
+        url: apiConfig.API_COMMIT_APPROVAL,
+        data: options.data
+      }).then(function (res) {
+        if (res.data.resultCode === '200') {
+          options.successCallback()
+        }
+      })
       .catch(function (err) {
         options.errorCallback()
       })
@@ -119,4 +119,5 @@ export default {
   state,
   getters,
   actions,
-mutations}
+  mutations
+}

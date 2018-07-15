@@ -44,6 +44,10 @@ export default {
             ]
         }
     },
+    mounted: function () {
+        this.$store.commit('updateUsername', '')
+        this.$store.commit('updateIsLogin', false)
+    },
     methods: {
         login() {
             let data = {
@@ -63,6 +67,7 @@ export default {
             let successCallback = (res) => {
                 if (res.data.resultCode === '200') {
                     this.$store.commit('updateUsername', data.loginName)
+                    this.$store.commit('updateIsLogin', true)
                     this.$router.push({
                         path: '/'
                     })

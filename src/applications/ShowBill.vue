@@ -199,6 +199,12 @@ export default {
         }
     },
     mounted: function () {
+        let isLogin = this.$store.getters.isLogin;
+        if (!isLogin) {
+            this.$router.push({
+                path: '/login'
+            })
+        }
         let workflowCode = this.$route.query.workflow_code;
         this.$store.commit('updateWorkflowCode', workflowCode);
         console.log('workflowCode is ' + workflowCode)

@@ -52,6 +52,14 @@ export default {
             ]
         }
     },
+    mounted: function () {
+        let isLogin = this.$store.getters.isLogin;
+        if (!isLogin) {
+            this.$router.push({
+                path: '/login'
+            })
+        }
+    },
     methods: {
         updatePassword() {
             var data = {
