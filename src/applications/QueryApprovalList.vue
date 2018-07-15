@@ -32,7 +32,6 @@ export default {
     },
     mounted: function () {
         let isLogin = this.$store.getters.isLogin;
-        console.log('isLogin' + isLogin)
         if (!isLogin) {
             this.$router.push({
                 path: '/login'
