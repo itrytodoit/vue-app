@@ -17,7 +17,7 @@
                     <td>{{item.workflow_code}}</td>
                     <!--<td>{{item.bill_type}}</td>-->
                     <td>
-                        <router-link :to="{'path':'show-bill'}">{{item.bill_code}}</router-link>
+                        <router-link :to="{'path':'show-bill',query:{workflow_code:item.workflow_code}}">{{item.bill_code}}</router-link>
                     </td>
                     <td>{{item.initiator}}</td>
                     <!--<td>{{item.description}}</td>-->

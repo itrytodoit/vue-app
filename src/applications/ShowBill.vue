@@ -185,6 +185,9 @@ export default {
         }
     },
     created: function () {
+        let workflowCode = this.$route.query.workflow_code;
+        this.$store.commit('updateWorkflowCode', workflowCode);
+        console.log('workflowCode is ' + workflowCode)
         let data = {}
         let successCallback = () => {}
         let errorCallback = () => {}

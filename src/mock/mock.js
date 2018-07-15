@@ -27,7 +27,7 @@ Mock.mock(apiConfig.API_QUERY_APPROVAL_LIST, {
       'bill_code': 'JK2018062600000002',
       'initiator': '杨勇2',
       'description': '杨勇2发起[ 借款测试—差旅 ]的申请',
-      'workflow_code': '0000013580'
+      'workflow_code': '0000013581'
     }
   ]
 })
