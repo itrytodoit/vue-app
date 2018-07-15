@@ -31,7 +31,7 @@ const actions = {
   queryApprovalList(context, options) {
     console.log(apiConfig.API_QUERY_APPROVAL_LIST)
     axios({
-      method: 'post',
+      method: 'GET',
       url: apiConfig.API_QUERY_APPROVAL_LIST,
       data: options.data
     }).then(function (res) {
